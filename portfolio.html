@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>David Pérez Marulanda</title>
+<style>
+  :root { --ink: #000; --paper: #fff; --gray: #f2f2f2; --mid: #4a4a4a; }
+  * { box-sizing: border-box; }
+  body, a, button {
+    cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='24' viewBox='0 0 11 16'%3E%3Cpolygon points='0,0 0,12 3,9 5.5,15 7.5,14 5,8.5 9,8.5' fill='%23000' stroke='%23fff' stroke-width='1'/%3E%3C/svg%3E") 0 0, auto;
+  }
+  body {
+    margin: 0; padding: 16px; background: #c0c0c0; color: var(--ink);
+    font-family: ui-monospace, Menlo, Consolas, monospace; font-size: clamp(14px, 2.4vw, 16px);
+    line-height: 1.5;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  .lang-bar {
+    background: #000; color: #fff; border: 2px solid #000; padding: 8px 12px;
+    display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 14px;
+  }
+  .lang-bar button {
+    font: inherit; font-weight: 700; border: 2px solid #fff; padding: 4px 14px; cursor: pointer; min-width: 52px;
+  }
+  .lang-bar button.on { background: #fff; color: #000; }
+  .lang-bar button:not(.on) { background: #000; color: #fff; }
+  .cart {
+    background: var(--gray); border: 3px solid #000; border-radius: 8px 8px 16px 16px; padding: 14px; position: relative;
+  }
+  .label {
+    border: 2px solid #000; background: var(--paper); padding: 14px; text-align: center;
+  }
+  .name { font-weight: 700; font-size: clamp(16px, 4vw, 22px); letter-spacing: 1px; }
+  .hero { width: min(160px, 46vw); margin: 10px auto; }
+  .hero svg, .spr svg { width: 100%; height: auto; display: block; }
+  .bio { max-width: 52ch; margin: 0 auto; }
+  .bio-row { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .cup { width: 32px; flex: 0 0 32px; }
+  .cup svg { width: 100%; height: auto; display: block; }
+  .deco-charango { position: absolute; top: 6px; right: 8px; line-height: 0; }
+  .divider { text-align: center; line-height: 0; margin: 14px 0 4px; }
+  .section {
+    text-align: center; font-weight: 700; font-size: clamp(15px, 3.5vw, 18px); letter-spacing: 1px;
+    margin: 16px 0 0; padding-bottom: 4px; border-bottom: 2px solid #000;
+  }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: 10px; margin-top: 12px;
+  }
+  .card {
+    border: 2px solid #000; background: var(--paper); padding: 12px; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .icon { width: 48px; flex: 0 0 48px; }
+  .icon svg { width: 100%; height: auto; display: block; }
+  .card h2 { font-size: 14px; margin: 0; font-weight: 700; }
+  .status { color: var(--mid); }
+  .card p { margin: 4px 0 0; }
+  .card .link { color: #000; }
+  .row { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .btn {
+    border: 2px solid #000; padding: 8px 14px; font-weight: 700; text-decoration: none; color: #000; background: var(--paper);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn.dark { background: #000; color: #fff; }
+  .btn .icon { width: 24px; flex: 0 0 24px; }
+  .start { text-align: center; margin-top: 14px; font-weight: 700; }
+  .note { font-size: 13px; color: #444; margin-top: 12px; text-align: center; }
+  @media (max-width: 480px) {
+    body { padding: 10px; }
+    .cart { padding: 10px; }
+    .label { padding: 10px; }
+    .card { padding: 10px; }
+    .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="lang-bar">
+    <span style="font-weight:700;">Idioma / Language</span>
+    <span>
+      <button class="on" data-lang="es" onclick="setLang('es')">ES</button>
+      <button data-lang="en" onclick="setLang('en')">EN</button>
+    </span>
+  </div>
+
+  <div class="cart">
+    <div class="deco-charango" id="charango"></div>
+    <div class="label">
+      <div class="name">DAVID PÉREZ MARULANDA</div>
+      <div class="hero spr" id="hero"></div>
+      <div class="bio-row"><div class="cup" id="cup"></div><p class="bio t" data-es="Productor de podcast, comunicador, educador, papá, charanguista y amante del café." data-en="Podcast producer, communicator, educator, dad, charango player and coffee lover.">Productor de podcast, comunicador, educador, papá, charanguista y amante del café.</p></div>
+    </div>
+
+    <div class="divider" id="div1"></div>
+    <h2 class="section t" data-es="Mis Proyectos" data-en="My Projects">Mis Proyectos</h2>
+    <div class="divider" id="div2"></div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon spr" id="i-book"></div>
+        <div>
+          <h2><a class="link" href="https://talkingsilkworm.com" target="_blank" rel="noopener">TalkingSilkworm.com</a></h2>
+          <div class="status t" data-es="Activo" data-en="Active">Activo</div>
+          <p class="t" data-es="Productora de podcasts para plataformas educativas, emprendedores educativos y equipos EdTech." data-en="Podcast production for online course platforms, edupreneurs and EdTech teams.">Productora de podcasts para plataformas educativas, emprendedores educativos y equipos EdTech.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon spr" id="i-folder"></div>
+        <div>
+          <h2><a class="link" href="https://silkmothmedia.com" target="_blank" rel="noopener">SilkmothMedia.com</a></h2>
+          <div class="status t" data-es="Activo" data-en="Active">Activo</div>
+          <p class="t" data-es="[Describe SilkmothMedia en 2 o 3 líneas]" data-en="[Describe SilkmothMedia in 2 or 3 lines]">[Describe SilkmothMedia en 2 o 3 líneas]</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon spr" id="i-mic1"></div>
+        <div>
+          <h2>Fluent English Pro</h2>
+          <div class="status t" data-es="Podcast · Inactivo" data-en="Podcast · Inactive">Podcast · Inactivo</div>
+          <p class="t" data-es="Podcast para profesionales que quieren mejorar su inglés en reuniones y presentaciones." data-en="Podcast for professionals who want to improve their English for meetings and presentations.">Podcast para profesionales que quieren mejorar su inglés en reuniones y presentaciones.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="icon spr" id="i-mic2"></div>
+        <div>
+          <h2>Todas Las Posibilidades</h2>
+          <div class="status t" data-es="Podcast · Próximamente" data-en="Podcast · Coming soon">Podcast · Próximamente</div>
+          <p class="t" data-es="[Describe el podcast y su fecha de lanzamiento]" data-en="[Describe the podcast and its launch date]">[Describe el podcast y su fecha de lanzamiento]</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <a class="btn" href="https://instagram.com/perezpod" target="_blank" rel="noopener"><span class="icon spr" id="i-cam"></span> Instagram @perezpod</a>
+      <a class="btn dark" href="mailto:david@perezpod.com"><span class="icon spr" id="i-mail"></span> <span class="t" data-es="Contacto" data-en="Contact">Contacto</span></a>
+    </div>
+
+  </div>
+
+  <p class="note t" data-es="Los corchetes indican textos pendientes." data-en="Brackets mark pending text.">Los corchetes indican textos pendientes.</p>
+</div>
+
+<script>
+const N = 32;
+const color = {'#': '#000', '+': '#4a4a4a', 'g': '#b5b5b5', 'w': '#ffffff', 'h': '#8a8a8a'};
+const grid = () => Array.from({length: N}, () => Array(N).fill('.'));
+function svg(g) {
+  let rects = '';
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const c = g[y][x];
+    if (c !== '.') rects += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + color[c] + '"/>';
+  }
+  return '<svg viewBox="0 0 32 32" shape-rendering="crispEdges" role="img" aria-hidden="true">' + rects + '</svg>';
+}
+function head() {
+  const g = grid();
+  const set = (x, y, c) => { if (x >= 0 && x < N && y >= 0 && y < N) g[y][x] = c; };
+  const ell = (cx, cy, rx, ry, c, f) => {
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++)
+      if (((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2 <= 1 && (!f || f(x, y))) set(x, y, c);
+  };
+  const rect = (x0, y0, x1, y1, c) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) set(x, y, c); };
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if ((x + y) % 4 === 0 && y < 6) set(x, y, 'h');
+  ell(16, 40, 17, 14, '#', (x, y) => y >= 24);
+  rect(11, 24, 21, N - 1, 'w');
+  for (let y = 24; y < N; y++) { set(11, y, '+'); set(21, y, '+'); }
+  for (let x = 11; x <= 21; x++) set(x, 24, '+');
+  set(16, 28, 'g'); set(16, 30, 'g');
+  rect(23, 27, 25, 28, 'g'); set(24, 27, 'w');
+  rect(13, 21, 19, 24, 'g');
+  ell(16, 14, 7.5, 9, 'g');
+  set(9, 14, 'h'); set(10, 10, 'h'); set(22, 10, 'h');
+  ell(16, 8, 8.5, 6, '#', (x, y) => y <= 9);
+  ell(16, 10, 8, 4, '#', (x, y) => y <= 11 && (x < 9 || x > 22));
+  for (let x = 10; x <= 21; x++) set(x, 6, '+');
+  set(13, 5, 'h'); set(14, 5, 'h');
+  ell(8.5, 14, 1.5, 2.5, 'g'); ell(23.5, 14, 1.5, 2.5, 'g');
+  for (let y = 9; y <= 19; y++) { set(10, y, 'h'); set(22, y, 'h'); }
+  for (const x of [11, 12, 13, 19, 20, 21]) set(x, 11, '#');
+  rect(12, 13, 13, 13, '#'); rect(19, 13, 20, 13, '#');
+  set(12, 12, 'w'); set(19, 12, 'w');
+  set(16, 15, 'h'); set(15, 16, 'h'); set(16, 16, '+');
+  for (let x = 12; x <= 20; x++) set(x, 17, '+');
+  set(13, 18, '#'); for (let x = 14; x <= 18; x++) set(x, 18, 'w'); set(19, 18, '#');
+  ell(16, 20, 3.5, 2, '+', (x, y) => y >= 19);
+  for (let x = 6; x <= 26; x++) {
+    const t = (x - 16) / 10;
+    const y = Math.round(3 + 9 * t * t);
+    set(x, y, '#'); set(x, y - 1, '+');
+  }
+  ell(7, 14, 2.2, 3.2, '#'); ell(25, 14, 2.2, 3.2, '#');
+  ell(7, 14, 1, 1.6, '+'); ell(25, 14, 1, 1.6, '+');
+  return g;
+}
+function icon(name) {
+  const g = grid();
+  const set = (x, y, c) => { if (x >= 0 && x < N && y >= 0 && y < N) g[y][x] = c; };
+  const rect = (x0, y0, x1, y1, c) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) set(x, y, c); };
+  const ell = (cx, cy, rx, ry, c) => {
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++)
+      if (((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2 <= 1) set(x, y, c);
+  };
+  const ring = (cx, cy, rx, ry, c, f) => {
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const d = ((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2;
+      if (d <= 1 && d >= 0.55 && (!f || f(x, y))) set(x, y, c);
+    }
+  };
+  const line = (x0, y0, x1, y1, c) => {
+    const steps = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0));
+    for (let s = 0; s <= steps; s++) set(Math.round(x0 + (x1 - x0) * s / steps), Math.round(y0 + (y1 - y0) * s / steps), c);
+  };
+  switch (name) {
+    case 'folder': rect(3,7,13,11,'#'); rect(3,10,28,25,'#'); rect(5,13,26,23,'w'); rect(5,13,26,14,'+'); rect(7,17,22,17,'+'); rect(7,20,18,20,'+'); break;
+    case 'book': rect(5,5,26,26,'#'); rect(7,7,24,24,'w'); rect(15,7,16,24,'#'); for (const y of [10,13,16,19]) { rect(9,y,13,y,'+'); rect(18,y,22,y,'+'); } break;
+    case 'mic':
+      ell(15.5, 8, 5, 5.5, '#');
+      rect(10, 8, 21, 15, '#');
+      ell(15.5, 15, 5, 3, '#');
+      for (const y of [7, 10, 13]) rect(13, y, 18, y, 'w');
+      ring(15.5, 17, 8, 7, '#', (x, y) => y >= 17);
+      rect(15, 23, 16, 27, '#');
+      rect(9, 27, 22, 29, '#');
+      break;
+    case 'camera': {
+      rect(3, 3, 28, 28, '#');
+      for (const [x, y] of [[3,3],[4,3],[3,4],[28,3],[27,3],[28,4],[3,28],[4,28],[3,27],[28,28],[27,28],[28,27]]) set(x, y, '.');
+      rect(6, 6, 25, 25, 'w');
+      ring(16, 16, 6.5, 6.5, '#');
+      ell(16, 16, 3, 3, '#');
+      ell(16, 16, 1.5, 1.5, 'w');
+      ell(23, 9, 1.5, 1.5, '#');
+      break;
+    }
+    case 'mail': rect(3,7,28,25,'#'); rect(5,9,26,23,'w'); line(5,9,16,17,'#'); line(26,9,16,17,'#'); break;
+  }
+  return g;
+}
+// ---- decorations: coffee cup, charango, pixel divider ----
+const gridN = n => Array.from({length: n}, () => Array(n).fill('.'));
+function svgN(g, scale, n) {
+  let rects = '';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    const c = g[y][x];
+    if (c !== '.') rects += '<rect x="' + x + '" y="' + y + '" width="1" height="1" fill="' + color[c] + '"/>';
+  }
+  return '<svg viewBox="0 0 ' + n + ' ' + n + '" width="' + (n * scale) + '" height="' + (n * scale) + '" shape-rendering="crispEdges" aria-hidden="true">' + rects + '</svg>';
+}
+function cupSprite() {
+  const g = gridN(32);
+  const set = (x, y, c) => { if (x >= 0 && x < 32 && y >= 0 && y < 32) g[y][x] = c; };
+  const rect = (x0, y0, x1, y1, c) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) set(x, y, c); };
+  for (const [x, y] of [[10,3],[11,4],[10,5],[11,6],[16,2],[17,3],[16,4],[17,5],[22,3],[21,4],[22,5]]) set(x, y, '+');
+  rect(6, 10, 21, 25, '#');
+  rect(8, 12, 19, 23, 'w');
+  rect(8, 12, 19, 13, '+');
+  for (let y = 13; y <= 20; y++) { set(22, y, '#'); set(23, y, '#'); }
+  rect(24, 13, 25, 13, '#'); rect(24, 20, 25, 20, '#');
+  rect(3, 26, 26, 28, '#');
+  rect(5, 27, 24, 27, 'g');
+  return g;
+}
+const CM = 64, CC = 32;
+function charangoDesign(x, y) {
+  const px = x + 0.5, py = y + 0.5;
+  const inE = (cx, cy, rx, ry) => ((px - cx) / rx) ** 2 + ((py - cy) / ry) ** 2 <= 1;
+  if (x >= 28 && x <= 36 && y >= 0 && y <= 4) return (y === 2 && x >= 31 && x <= 33) ? 'w' : '#';
+  if ((x >= 26 && x <= 27) || (x >= 37 && x <= 38)) { if (y === 1 || y === 3) return '#'; if (y === 2) return '+'; }
+  if (x >= 29 && x <= 35 && y >= 5 && y <= 30) {
+    if (x === 29 || x === 35) return '#';
+    if (x === 32) return 'w';
+    if ([9, 12, 15, 18, 21, 24, 27].includes(y)) return 'w';
+    return '#';
+  }
+  const inOuter = inE(32, 36, 8, 7.5) || inE(32, 47, 10, 9.5);
+  const inInner = inE(32, 36, 6, 5.5) || inE(32, 47, 8, 7.5);
+  if (!inOuter) return '.';
+  if (!inInner) return '#';
+  if (inE(32, 44, 3.2, 3.2)) return '#';
+  if (inE(32, 44, 5, 5)) return '+';
+  if (y >= 52 && y <= 53 && x >= 27 && x <= 37) return '#';
+  if (x === 32 && y >= 31 && y <= 51) return 'g';
+  if (y % 6 === 0) return 'g';
+  if (x >= 40) return 'g';
+  return 'w';
+}
+function cleanGrid(g, n) {
+  const out = g.map(r => r.slice());
+  const filled = (x, y) => x >= 0 && x < n && y >= 0 && y < n && g[y][x] !== '.';
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    let nb = 0;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if ((dx || dy) && filled(x + dx, y + dy)) nb++;
+    if (g[y][x] !== '.' && nb <= 1) out[y][x] = '.';
+    if (g[y][x] === '.' && nb >= 6) out[y][x] = '#';
+  }
+  return out;
+}
+function charangoSprite() {
+  const g = gridN(CM);
+  const c = Math.SQRT1_2, s = Math.SQRT1_2;
+  for (let ty = 0; ty < CM; ty++) for (let tx = 0; tx < CM; tx++) {
+    const dx = tx + 0.5 - CC, dy = ty + 0.5 - CC;
+    const sx = dx * c + dy * s + CC, sy = -dx * s + dy * c + CC;
+    const ix = Math.floor(sx), iy = Math.floor(sy);
+    g[ty][tx] = (ix >= 0 && ix < CM && iy >= 0 && iy < CM) ? charangoDesign(ix, iy) : '.';
+  }
+  return cleanGrid(g, CM);
+}
+function dividerHTML(a, b) {
+  const cells = Array.from({length: 40}, (_, i) => `<span style="display:inline-block;width:6px;height:6px;background:${i % 2 ? b : a};"></span>`).join('');
+  return cells;
+}
+const put = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+put('hero', svg(head()));
+put('i-book', svg(icon('book')));
+put('i-folder', svg(icon('folder')));
+put('i-mic1', svg(icon('mic')));
+put('i-mic2', svg(icon('mic')));
+put('i-cam', svg(icon('camera')));
+put('i-mail', svg(icon('mail')));
+put('cup', svgN(cupSprite(), 2, 32));
+put('charango', svgN(charangoSprite(), 1.5, CM));
+put('div1', dividerHTML('#000', '#fff'));
+put('div2', dividerHTML('#fff', '#000'));
+
+function setLang(lang) {
+  document.querySelectorAll('.t').forEach(el => { el.textContent = el.dataset[lang]; });
+  document.querySelectorAll('.lang-bar button').forEach(b => b.classList.toggle('on', b.dataset.lang === lang));
+  document.documentElement.lang = lang;
+}
+</script>
+</body>
+</html>
